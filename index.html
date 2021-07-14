@@ -20,13 +20,14 @@
                 type="number"
                 class="w-100 mr-2 pl-2"
                 placeholder="구입 금액"
+                id = "로또 금액 입력 칸"
               />
-              <button type="button" class="btn btn-cyan">확인</button>
+              <button type="button" class="btn btn-cyan" id="구입 확인">확인</button>
             </div>
           </form>
           <section class="mt-9">
             <div class="d-flex">
-              <label class="flex-auto my-0">총 5개를 구매하였습니다.</label>
+              <label class="flex-auto my-0" value={number} id="구입 개수">.</label>
               <div class="flex-auto d-flex justify-end pr-1">
                 <label class="switch">
                   <input type="checkbox" class="lotto-numbers-toggle-button" />
@@ -147,6 +148,9 @@
         </div>
       </div>
     </div>
+    <!-- <script type="module" src="./src/js/util/RandomGenerator.js"></script>
+    <script type="module" src="./src/js/domain/lotto.js"></script> -->
+    <!-- <script type="module" src="./src/js/controller/LottoPurchase.js"></script> -->
     <script type="module" src="./src/js/index.js"></script>
   </body>
 </html>
