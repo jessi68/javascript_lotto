@@ -1,5 +1,5 @@
-import purchaseLotto from "./controller/LottoFeatures.js"
-
+import  {showNumbers} from "./controller/LottoFeatures.js"
+import purchaseLotto  from "./controller/LottoFeatures.js"
 
 const $showResultButton = document.querySelector('.open-result-modal-button')
 const $modalClose = document.querySelector('.modal-close')
@@ -16,9 +16,7 @@ const onModalClose = () => {
   $modal.classList.remove('open')
 }
 
-function showLotto() {
 
-}
 $showResultButton.addEventListener('click', onModalShow)
 $modalClose.addEventListener('click', onModalClose)
 
@@ -27,4 +25,4 @@ $modalClose.addEventListener('click', onModalClose)
 
 
 document.getElementById("구입 확인").addEventListener("click", purchaseLotto);
-
+document.getElementById("번호 보기").addEventListener("click", showNumbers);

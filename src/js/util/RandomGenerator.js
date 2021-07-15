@@ -1,14 +1,15 @@
 
 export default function getRandomNumber(digit) {
-    let MAX = 9;
+    let MAX = 10;
     let MIN = 0;
 
     let str = "";
 
     for(let i = 0; i < digit; i++) {
-        str += getRandomNumber() * (MAX - MIN) + MIN;
+        const number = Math.floor(Math.random() * (MAX - MIN) + MIN);
+        str += (number).toString();
     }
-
+  
     return str;
     
 }
