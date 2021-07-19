@@ -1,28 +1,15 @@
-import  {showNumbers} from "./controller/LottoFeatures.js"
-import purchaseLotto  from "./controller/LottoFeatures.js"
+import LottoController from "./controller/LottoController.js"
 
-const $showResultButton = document.querySelector('.open-result-modal-button')
-const $modalClose = document.querySelector('.modal-close')
-const $modal = document.querySelector('.modal')
-const $lottoNumbersToggleButton = document.querySelector(
-  '.lotto-numbers-toggle-button'
-)
 
-const onModalShow = () => {
-  $modal.classList.add('open')
+
+class App {
+  main() {
+    const controller = new LottoController();
+    controller.initConfigure();
+  }
+  constructor() {
+    this.main();
+  }
 }
 
-const onModalClose = () => {
-  $modal.classList.remove('open')
-}
-
-
-$showResultButton.addEventListener('click', onModalShow)
-$modalClose.addEventListener('click', onModalClose)
-
-
-
-
-
-document.getElementById("구입 확인").addEventListener("click", purchaseLotto);
-document.getElementById("번호 보기").addEventListener("click", showNumbers);
+new App();

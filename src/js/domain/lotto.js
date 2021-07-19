@@ -1,6 +1,6 @@
 import getRandomNumber from "../util/RandomGenerator.js"
 
-export class Lotto{
+export default class Lotto{
 
     static DIGIT = 6;
     static PRICE = 1000;
