@@ -6,13 +6,29 @@ import  LottoService  from "../service/LottoService.js";
 export default class LottoController {
     static ID_OF_LOTTO_PRICE_ELEMENT = "로또 금액 입력 칸"
 
+
+    isMoneyValid(price) {
+        return prive > 0 && price % 1000 == 0 
+    }
     
-    purchaseLottos() {
-        let price = parseInt(document.getElementById(LottoController.ID_OF_LOTTO_PRICE_ELEMENT).value);
+
+    purchaseLotto(price) {
+        
         this.number = this.lottoService.purchaseLottos(price);
         const PURCHASE_INFO = `총 ${this.number}  개를 구매하였습니다`
         let element = document.getElementById("구입 개수");
         element.innerHTML = PURCHASE_INFO
+    }
+
+    tryPurchaseLottos() {
+        let price = parseInt(document.getElementById(LottoController.ID_OF_LOTTO_PRICE_ELEMENT).value);
+
+        
+        if(this.isMoneyValid()) {
+            purchaseLotto(price);
+        } else{
+            alert("입력이 잘못되었습니다.")
+        }
     }
 
 
@@ -31,7 +47,7 @@ export default class LottoController {
     }
 
     initConfigure() {
-        document.getElementById("구입 확인").addEventListener("click", this.purchaseLottos.bind(this));
+        document.getElementById("구입 확인").addEventListener("click", this.tryPurchaseLottos.bind(this));
         document.getElementById("번호 보기").addEventListener("click", this.showNumbers.bind(this));
     }
     
