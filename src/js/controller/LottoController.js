@@ -1,14 +1,14 @@
 import Lotto from "../domain/lotto.js"
 import  LottoService  from "../service/LottoService.js";
-
-
+import {showLottoToggledOn} from "../view/LottoNumberView.js";
 
 export default class LottoController {
     static ID_OF_LOTTO_PRICE_ELEMENT = "로또 금액 입력 칸"
-
+    static toggleButtonId = "번호 보기";
+    static purchasedNumberView =  document.getElementById("구입한 번호들");
 
     isMoneyValid(price) {
-        return prive > 0 && price % 1000 == 0 
+        return price > 0 && price % 1000 == 0 
     }
     
 
@@ -22,28 +22,30 @@ export default class LottoController {
 
     tryPurchaseLottos() {
         let price = parseInt(document.getElementById(LottoController.ID_OF_LOTTO_PRICE_ELEMENT).value);
-
         
-        if(this.isMoneyValid()) {
-            purchaseLotto(price);
+        if(this.isMoneyValid(price) == true) {
+            this.purchaseLotto(price);
         } else{
             alert("입력이 잘못되었습니다.")
         }
     }
-
-
-
+    
+    // showNumber, hideNumber
     showNumbers() {
-        let externalForm = document.getElementById("구입한 번호들");
+        let isOn =  document.getElementById(LottoController.toggleButtonId).checked;
         let lottos = this.lottoService.getLottos();
+        let results = "";
+        console.log(isOn);
+        if(isOn)  {
 
-        for(let i = 0; i < this.number; i++) {
-            let lotto = lottos[i];
-            let new_list = document.createElement('ul');
-            let numbers = lotto.numbers;
-            new_list.innerHTML = numbers.toString();
-            externalForm.appendChild(new_list);
+            for(let i = 0; i < this.number; i++) {
+                let lotto = lottos[i];
+                let numbers = lotto.numbers;
+                results += showLottoToggledOn(numbers);
+            }
         }
+        console.log(results);
+        LottoController.purchasedNumberView.innerHTML = results;
     }
 
     initConfigure() {

@@ -7,7 +7,6 @@ export default class LottoService {
         this.lottos = []
         this.lottoNum = 0
     }
-
     
      purchaseLottos(price) {
 
