@@ -11,7 +11,6 @@ export default class LottoController {
         return price > 0 && price % 1000 == 0 
     }
     
-
     purchaseLotto(price) {
         
         this.number = this.lottoService.purchaseLottos(price);
