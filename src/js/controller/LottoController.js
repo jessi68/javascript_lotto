@@ -1,6 +1,6 @@
 import Lotto from "../domain/lotto.js"
 import  LottoService  from "../service/LottoService.js";
-import {showLottoToggledOn} from "../view/LottoNumberView.js";
+import {lottoTicketInfoView} from "../view/LottoNumberView.js";
 
 export default class LottoController {
     static ID_OF_LOTTO_PRICE_ELEMENT = "로또 금액 입력 칸"
@@ -34,16 +34,16 @@ export default class LottoController {
         let isOn =  document.getElementById(LottoController.toggleButtonId).checked;
         let lottos = this.lottoService.getLottos();
         let results = "";
-        console.log(isOn);
+        
         if(isOn)  {
 
             for(let i = 0; i < this.number; i++) {
                 let lotto = lottos[i];
                 let numbers = lotto.numbers;
-                results += showLottoToggledOn(numbers);
+                results += lottoTicketInfoView(numbers);
             }
         }
-        console.log(results);
+        
         LottoController.purchasedNumberView.innerHTML = results;
     }
 

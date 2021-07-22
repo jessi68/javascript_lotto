@@ -1,17 +1,20 @@
-function ModalView() {
-    return `
-    <button id="myBtn">Open Modal</button>
-    
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
-    
-      <!-- Modal content -->
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <p>Some text in the Modal..</p>
-      </div>
-    
-    </div>
-    `;
 
+const $showResultButton = document.querySelector('.open-result-modal-button');
+const $modalClose = document.querySelector('.modal-close');
+const $modal = document.querySelector('.modal');
+
+const $lottoNumbersToggleButton = document.querySelector(
+    '.lotto-numbers-toggle-button'
+)
+
+const onModalShow = () => {
+        $modal.classList.add('open')
 }
+
+const onModalClose = () => {
+    $modal.classList.remove('open')
+}
+
+$showResultButton.addEventListener('click', onModalShow)
+$modalClose.addEventListener('click', onModalClose)
+
