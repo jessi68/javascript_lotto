@@ -1,11 +1,11 @@
+import { LOTTO_INVALID_PRICE } from "../consts/ErrorMEssage.js";
+import  {PUCHASED_LOTTO_COUNT, PURCHASED_CONFIRM, PURCHASED_NUMBER, SHOW_NUMBER, ID_OF_LOTTO_PRICE_ELEMENT} from "../consts/LottoUiId.js";
 import Lotto from "../domain/lotto.js"
 import  LottoService  from "../service/LottoService.js";
 import {lottoTicketInfoView} from "../view/LottoNumberView.js";
 
 export default class LottoController {
-    static ID_OF_LOTTO_PRICE_ELEMENT = "로또 금액 입력 칸"
-    static toggleButtonId = "번호 보기";
-    static purchasedNumberView =  document.getElementById("구입한 번호들");
+    static purchasedNumberView =  document.getElementById(PURCHASED_NUMBER);
 
     isMoneyValid(price) {
         return price > 0 && price % 1000 == 0 
@@ -15,23 +15,23 @@ export default class LottoController {
         
         this.number = this.lottoService.purchaseLottos(price);
         const PURCHASE_INFO = `총 ${this.number}  개를 구매하였습니다`
-        let element = document.getElementById("구입 개수");
+        let element = document.getElementById(PUCHASED_LOTTO_COUNT);
         element.innerHTML = PURCHASE_INFO
     }
 
     tryPurchaseLottos() {
-        let price = parseInt(document.getElementById(LottoController.ID_OF_LOTTO_PRICE_ELEMENT).value);
+        let price = parseInt(document.getElementById(ID_OF_LOTTO_PRICE_ELEMENT).value);
         
         if(this.isMoneyValid(price) == true) {
             this.purchaseLotto(price);
         } else{
-            alert("입력이 잘못되었습니다.")
+            alert(LOTTO_INVALID_PRICE)
         }
     }
     
     // showNumber, hideNumber
     showNumbers() {
-        let isOn =  document.getElementById(LottoController.toggleButtonId).checked;
+        let isOn =  document.getElementById(SHOW_NUMBER).checked;
         let lottos = this.lottoService.getLottos();
         let results = "";
         
@@ -43,13 +43,13 @@ export default class LottoController {
                 results += lottoTicketInfoView(numbers);
             }
         }
-        
+        console.log(results);
         LottoController.purchasedNumberView.innerHTML = results;
     }
 
     initConfigure() {
-        document.getElementById("구입 확인").addEventListener("click", this.tryPurchaseLottos.bind(this));
-        document.getElementById("번호 보기").addEventListener("click", this.showNumbers.bind(this));
+        document.getElementById(PURCHASED_CONFIRM).addEventListener("click", this.tryPurchaseLottos.bind(this));
+        document.getElementById(SHOW_NUMBER).addEventListener("click", this.showNumbers.bind(this));
     }
     
     constructor() {
@@ -57,20 +57,3 @@ export default class LottoController {
     }
 
 }
- // const $showResultButton = document.querySelector('.open-result-modal-button')
-    // const $modalClose = document.querySelector('.modal-close')
-    // const $modal = document.querySelector('.modal')
-    // const $lottoNumbersToggleButton = document.querySelector(
-    // '.lotto-numbers-toggle-button'
-    // )
-
-    // const onModalShow = () => {
-    // $modal.classList.add('open')
-    // }
-
-    // const onModalClose = () => {
-    // $modal.classList.remove('open')
-    // }
-
-    // $showResultButton.addEventListener('click', onModalShow)
-    // $modalClose.addEventListener('click', onModalClose)

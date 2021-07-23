@@ -1,0 +1,1 @@
+export const LOTTO_INVALID_PRICE = "구입 금액을 잘못 입력하셨습니다. 1000의 배수 단위인 자연수를 입력해주세요."

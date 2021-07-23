@@ -5,9 +5,14 @@ export default function getRandomNumber(digit) {
 
     let arr =  [];
 
-    for(let i = 0; i < digit; i++) {
+    let i = 0;
+    
+    while(i < digit) {
         const number = Math.floor(Math.random() * (MAX - MIN) + MIN);
-        arr.push(number);
+        if(arr.indexOf(number) === -1) {
+            arr.push(number); 
+            i++
+        }
     }
   
     return arr;
