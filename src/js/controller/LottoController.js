@@ -1,5 +1,5 @@
 import { LOTTO_INVALID_PRICE } from "../consts/ErrorMEssage.js";
-import  {PUCHASED_LOTTO_COUNT, PURCHASED_CONFIRM, PURCHASED_NUMBER, SHOW_NUMBER, ID_OF_LOTTO_PRICE_ELEMENT} from "../consts/LottoUiId.js";
+import  {PURCHASED_LOTTO_COUNT, PURCHASED_CONFIRM, PURCHASED_NUMBER, SHOW_NUMBER, ID_OF_LOTTO_PRICE_ELEMENT} from "../consts/LottoUiId.js";
 import Lotto from "../domain/lotto.js"
 import  LottoService  from "../service/LottoService.js";
 import {lottoTicketInfoView} from "../view/LottoNumberView.js";
@@ -14,8 +14,8 @@ export default class LottoController {
     purchaseLotto(price) {
         
         this.number = this.lottoService.purchaseLottos(price);
-        const PURCHASE_INFO = `총 ${this.number}  개를 구매하였습니다`
-        let element = document.getElementById(PUCHASED_LOTTO_COUNT);
+        const PURCHASE_INFO = `총 ${this.number} 개를 구매하였습니다`
+        let element = document.getElementById(PURCHASED_LOTTO_COUNT);
         element.innerHTML = PURCHASE_INFO
     }
 
@@ -30,7 +30,7 @@ export default class LottoController {
     }
     
     // showNumber, hideNumber
-    showNumbers() {
+    showOrHideNumbers() {
         let isOn =  document.getElementById(SHOW_NUMBER).checked;
         let lottos = this.lottoService.getLottos();
         let results = "";
@@ -40,7 +40,7 @@ export default class LottoController {
             for(let i = 0; i < this.number; i++) {
                 let lotto = lottos[i];
                 let numbers = lotto.numbers;
-                results += lottoTicketInfoView(numbers);
+                results += lottoTicketInfoView(numbers, i);
             }
         }
         console.log(results);
@@ -49,7 +49,7 @@ export default class LottoController {
 
     initConfigure() {
         document.getElementById(PURCHASED_CONFIRM).addEventListener("click", this.tryPurchaseLottos.bind(this));
-        document.getElementById(SHOW_NUMBER).addEventListener("click", this.showNumbers.bind(this));
+        document.getElementById(SHOW_NUMBER).addEventListener("click", this.showOrHideNumbers.bind(this));
     }
     
     constructor() {
