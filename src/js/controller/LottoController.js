@@ -1,5 +1,5 @@
 import { LOTTO_INVALID_PRICE } from "../consts/ErrorMEssage.js";
-import  {PURCHASED_LOTTO_COUNT, PURCHASED_CONFIRM, PURCHASED_NUMBER, SHOW_NUMBER, ID_OF_LOTTO_PRICE_ELEMENT} from "../consts/LottoUiId.js";
+import  {PURCHASED_LOTTO_COUNT, PURCHASED_CONFIRM, PURCHASED_NUMBER, SHOW_NUMBER, ID_OF_LOTTO_PRICE_ELEMENT, LOTTO_PRICE_RESULTS} from "../consts/LottoUiId.js";
 import Lotto from "../domain/lotto.js"
 import  LottoService  from "../service/LottoService.js";
 import {lottoTicketInfoView} from "../view/LottoNumberView.js";
@@ -11,8 +11,7 @@ export default class LottoController {
         return price > 0 && price % 1000 == 0 
     }
     
-    purchaseLotto(price) {
-        
+    purchaseLotto(price) {    
         this.number = this.lottoService.purchaseLottos(price);
         const PURCHASE_INFO = `총 ${this.number} 개를 구매하였습니다`
         let element = document.getElementById(PURCHASED_LOTTO_COUNT);
@@ -47,9 +46,26 @@ export default class LottoController {
         LottoController.purchasedNumberView.innerHTML = results;
     }
 
+    loadWinningNumber() {
+        let winningNumberElements = document.querySelectorAll("[data-winning]");
+        let number = []
+        for(let i = 0; i < winningNumberElements.length; i++) {
+            let winningNumberElement = winningNumberElements[i];
+            number.push(parseInt(winningNumberElement.value));
+        }
+        return number
+    }
+
+    showLottoStatistics() {
+        let winningNumbers = this.loadWinningNumber();
+       
+
+    }
+
     initConfigure() {
         document.getElementById(PURCHASED_CONFIRM).addEventListener("click", this.tryPurchaseLottos.bind(this));
         document.getElementById(SHOW_NUMBER).addEventListener("click", this.showOrHideNumbers.bind(this));
+        document.getElementById(LOTTO_PRICE_RESULTS).addEventListener("click", this.showLottoStatistics.bind(this));
     }
     
     constructor() {
