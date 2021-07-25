@@ -22,4 +22,10 @@ export default class LottoService {
     getLottos() {
         return this.lottos;
     }
+
+    evaluateLottos(winningNumbers, bonusNumber) {
+        for(let i = 0;  i < this.lottoNum;  i++) {
+            this.lottos[i].evaluatePriceBy(winningNumbers, bonusNumber);
+        }
+    }
 }

@@ -46,20 +46,30 @@ export default class LottoController {
         LottoController.purchasedNumberView.innerHTML = results;
     }
 
+    loadBonusNumber() {
+        let bonusNumberElement = document.getElementById("bonus-number");
+        return parseInt(bonusNumberElement.value)
+    }
+
     loadWinningNumber() {
         let winningNumberElements = document.querySelectorAll("[data-winning]");
-        let number = []
+        let winningNumbers = {}
         for(let i = 0; i < winningNumberElements.length; i++) {
             let winningNumberElement = winningNumberElements[i];
-            number.push(parseInt(winningNumberElement.value));
+            let winningNumber = parseInt(winningNumberElement.value)
+            if(!winningNumbers.hasOwnProperty(winningNumber))  {
+                winningNumbers[winningNumber] = 0
+            } else{
+                winningNumbers[winningNumber] += 1;
+            }
         }
-        return number
+        return winningNumbers
     }
 
     showLottoStatistics() {
         let winningNumbers = this.loadWinningNumber();
-       
-
+        let bonusNumber = this.loadBonusNumber();
+        this.lottoService.evaluateLottos(winningNumbers, bonusNumber);
     }
 
     initConfigure() {
