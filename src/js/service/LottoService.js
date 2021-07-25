@@ -28,4 +28,14 @@ export default class LottoService {
             this.lottos[i].evaluatePriceBy(winningNumbers, bonusNumber);
         }
     }
+
+    calculateProfits() {
+        let expenditure  = LottoService.lottoPrice * this.lottoNum;
+        let sales = 0
+        for(let i = 0; i < this.lottoNum; i++) {
+            sales += this.lottos[i].getPriceMoney();
+        }
+        let profit = sales - expenditure;
+        return profit;
+    }
 }

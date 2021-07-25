@@ -27,9 +27,9 @@ let DEFAULT_BONUS_VALUE = false
 
 export const lottoRewardBy = [
 	 {
-		price: 200000000,
-        rank: "1등",
-        equalNumber: 6,
+		"price": 200000000,
+        "rank": "1등",
+        "equalNumber": 6,
         isBonus: DEFAULT_BONUS_VALUE
 	},
     {
