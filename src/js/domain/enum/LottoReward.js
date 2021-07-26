@@ -62,15 +62,15 @@ export const lottoRewardBy = [
     } 
 ]
 
-function isSecondPrice(isBonus, RewardBonus)  {
-    return isBonus == true && RewardBonus == true
+function isSecondPrice(isBonus, RewardBonus, winningNumberCount)  {
+    return isBonus == true && RewardBonus == true && winningNumberCount == 5
 }
 
 export function getPriceResultBy(winningNumberCount, isBonus) {
     console.log(winningNumberCount, isBonus);
     for(let i = 0; i < lottoRewardBy.length - 1; i++) {
         let reward = lottoRewardBy[i];
-        if(isSecondPrice(isBonus, reward.isBonus)) {
+        if(isSecondPrice(isBonus, reward.isBonus, winningNumberCount)) {
             return reward;
         }
         if(reward.equalNumber == winningNumberCount) {

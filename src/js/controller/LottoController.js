@@ -57,7 +57,7 @@ export default class LottoController {
             let winningNumberElement = winningNumberElements[i];
             let winningNumber = parseInt(winningNumberElement.value)
             if(!winningNumbers.hasOwnProperty(winningNumber))  {
-                winningNumbers[winningNumber] = 0
+                winningNumbers[winningNumber] = 1
             } else{
                 winningNumbers[winningNumber] += 1;
             }
@@ -68,12 +68,13 @@ export default class LottoController {
     showLottoStatistics() {
         let winningNumbers = this.loadWinningNumber();
         let bonusNumber = this.loadBonusNumber();
+        console.log(winningNumbers)
         this.lottoService.evaluateLottos(winningNumbers, bonusNumber);
         this.$modal.classList.add('open')
         
     }
 
-     onModalClose = () => {
+    onModalClose() {
         this.$modal.classList.remove('open')
     }
 
@@ -81,7 +82,7 @@ export default class LottoController {
         document.getElementById(PURCHASED_CONFIRM).addEventListener("click", this.tryPurchaseLottos.bind(this));
         document.getElementById(SHOW_NUMBER).addEventListener("click", this.showOrHideNumbers.bind(this));
         document.getElementById(LOTTO_PRICE_RESULTS).addEventListener("click", this.showLottoStatistics.bind(this));
-        this.$modalClose.addEventListener('click', onModalClose)
+        this.$modalClose.addEventListener('click', this.onModalClose.bind(this));
     }
     
     constructor() {

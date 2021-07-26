@@ -18,11 +18,11 @@ export default class Lotto{
     countEachNumber() {
         this.numberToCount = {}
 
-        for(let i = 0; i < Lotto.lDIGIT; i++) {
+        for(let i = 0; i < Lotto.DIGIT; i++) {
             if(this.numberToCount.hasOwnProperty(this.numbers[i])) {
                 this.numberToCount[this.numbers[i]] += 1;
             } else{
-                this.numberToCount[this.numbers[i]] = 0;
+                this.numberToCount[this.numbers[i]] = 1;
             }
         }
 
@@ -30,12 +30,14 @@ export default class Lotto{
 
     evaluatePriceBy(winningNumbers, bonusNumber) {
         this.countEachNumber();
+        console.log(this.numberToCount)
         let equalNumber = 0
         let isBonus = false;
         for(const number in winningNumbers) {
             let count = winningNumbers[number];
+            console.log(number, count)
             if(this.numberToCount.hasOwnProperty(number)) {
-                equalNumber += Math.min(count, this.numberToCount[number]);
+                equalNumber += 1;
             }
         }
         if(this.numberToCount.hasOwnProperty(bonusNumber)) {
