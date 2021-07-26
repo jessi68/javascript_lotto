@@ -42,7 +42,6 @@ export default class LottoController {
                 results += lottoTicketInfoView(numbers, i);
             }
         }
-        console.log(results);
         LottoController.purchasedNumberView.innerHTML = results;
     }
 
@@ -70,16 +69,25 @@ export default class LottoController {
         let winningNumbers = this.loadWinningNumber();
         let bonusNumber = this.loadBonusNumber();
         this.lottoService.evaluateLottos(winningNumbers, bonusNumber);
+        this.$modal.classList.add('open')
+        
+    }
+
+     onModalClose = () => {
+        this.$modal.classList.remove('open')
     }
 
     initConfigure() {
         document.getElementById(PURCHASED_CONFIRM).addEventListener("click", this.tryPurchaseLottos.bind(this));
         document.getElementById(SHOW_NUMBER).addEventListener("click", this.showOrHideNumbers.bind(this));
         document.getElementById(LOTTO_PRICE_RESULTS).addEventListener("click", this.showLottoStatistics.bind(this));
+        this.$modalClose.addEventListener('click', onModalClose)
     }
     
     constructor() {
         this.lottoService = new LottoService();
+        this.$modalClose = document.querySelector('.modal-close');
+        this.$modal = document.querySelector('.modal');
     }
 
 }
