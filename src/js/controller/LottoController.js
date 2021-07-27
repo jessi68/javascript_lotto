@@ -1,9 +1,9 @@
 import { LOTTO_ERROR_MESSAGE } from "../consts/ErrorMEssage.js";
-import  {PURCHASED_LOTTO_COUNT, PURCHASED_CONFIRM, PURCHASED_NUMBER, SHOW_NUMBER, ID_OF_LOTTO_PRICE_ELEMENT, LOTTO_PRICE_RESULTS} from "../consts/LottoUiId.js";
+import  {PURCHASED_LOTTO_COUNT, PURCHASED_CONFIRM, PURCHASED_NUMBER, SHOW_NUMBER, ID_OF_LOTTO_PRICE_ELEMENT, LOTTO_PRICE_RESULTS, RESTART} from "../consts/LottoUiId.js";
 import Lotto from "../domain/lotto.js"
 import  LottoService  from "../service/LottoService.js";
 import {lottoTicketInfoView} from "../view/LottoNumberView.js";
-import { lottoAwardView } from "../view/LottoStatisticsView.js";
+import { incomeProportionView, lottoAwardView } from "../view/LottoStatisticsView.js";
 
 export default class LottoController {
     static purchasedNumberView =  document.getElementById(PURCHASED_NUMBER);
@@ -69,10 +69,12 @@ export default class LottoController {
         if(this.modalContent !== undefined)  {
             return;
         }
+        
         for(const reward in lottoPriceToCount) {
             this.modalContent = document.createElement("tr");
             this.modalContent.className = "text-center";
             this.modalContent.innerHTML = lottoAwardView(JSON.parse(reward), lottoPriceToCount[reward]);
+            this.modalContent.innerHTML += incomeProportionView(this.lottoService.getProfit());
             this.modalBody.appendChild(this.modalContent);
         }
     }
@@ -90,19 +92,26 @@ export default class LottoController {
 
     }
 
-    initConfigure() {
+    restart() {
+        this.init();
+    }
+
+    connectViewAndModel() {
         document.getElementById(PURCHASED_CONFIRM).addEventListener("click", this.tryPurchaseLottos.bind(this));
         document.getElementById(SHOW_NUMBER).addEventListener("click", this.showOrHideNumbers.bind(this));
         document.getElementById(LOTTO_PRICE_RESULTS).addEventListener("click", this.showLottoStatistics.bind(this));
+        document.getElementById(RESTART).addEventListener("click", this.restart.bind(this));
         this.$modalClose.addEventListener('click', this.onModalClose.bind(this));
-        this.modalBody = document.getElementById("modal-tbody");
+        
     }
     
-    constructor() {
+    init() {
         this.lottoService = new LottoService();
         this.$modalClose = document.querySelector('.modal-close');
         this.$modal = document.querySelector('.modal');
         this.modalContent = undefined;
+        this.modalBody = document.getElementById("modal-tbody");
+        this.connectViewAndModel();
     }
 
 }

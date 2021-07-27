@@ -6,8 +6,8 @@ export default class LottoService {
     constructor() {
         this._lottos = []
         this._lottoNum = 0
-        this.expenditure = 0;
-        this.sales = 0;
+        this._expenditure = 0;
+        this._sales = 0;
     }
 
     static isValidForBuyLotto(price) {
@@ -19,7 +19,7 @@ export default class LottoService {
     }
 
     purchaseLotto(numbers) {
-        this.expenditure += Lotto.PRICE;
+        this._expenditure += Lotto.PRICE;
         this._lottos.push(new Lotto(numbers));
         this._lottoNum += 1;
     }
@@ -55,14 +55,19 @@ export default class LottoService {
                 this.lottoPriceToCount[JSON.stringify(reward)] = 1
             }
         }
+        this.calculateProfits();
         return this.lottoPriceToCount
     }
 
     calculateProfits() {
         for(let i = 0; i < this._lottoNum; i++) {
-            this.sales += this._lottos[i].getPriceMoney();
+            this._sales += this._lottos[i].getPriceMoney();
         }
-        this.profit = this.sales - this.expenditure;
+        this.profit = this._sales - this._expenditure;
+        return this.profit;
+    }
+
+    getProfit() {
         return this.profit;
     }
 }

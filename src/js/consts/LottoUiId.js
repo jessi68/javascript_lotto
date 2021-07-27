@@ -4,3 +4,4 @@ export const PURCHASED_CONFIRM = "구입 제출";
 export const SHOW_NUMBER = "번호 보기"
 export const PURCHASED_LOTTO_COUNT =  "구입 개수"
 export const LOTTO_PRICE_RESULTS = "lotto-results-confirm";
+export const RESTART = "restart"

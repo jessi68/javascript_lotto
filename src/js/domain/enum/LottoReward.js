@@ -75,8 +75,6 @@ export function getPriceResultBy(winningNumberCount, isBonus) {
             return reward;
         }
         if(reward.equalNumber == winningNumberCount) {
-            console.log(reward)
-            console.log(reward["price"])
             return reward;
         }
     }

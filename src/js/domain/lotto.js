@@ -71,12 +71,14 @@ export default class Lotto{
             isBonus = true;
         }
         this.#priceResult = getPriceResultBy(equalNumber, isBonus);
-        this.#priceResult["isBonus"] = isBonus;
-        this.#priceResult["equalNumber"] = equalNumber
     }
 
     includes(bonusNumber) {
         this.numbers.includes(bonusNumber);
+    }
+
+    getPriceMoney() {
+        return this.#priceResult["price"];
     }
 
     getReward() {

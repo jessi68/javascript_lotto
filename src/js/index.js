@@ -6,7 +6,7 @@ import Lotto from "./domain/lotto.js";
 class App {
   main() {
     const controller = new LottoController();
-    controller.initConfigure();
+    controller.init();
   }
   constructor() {
     this.main();
