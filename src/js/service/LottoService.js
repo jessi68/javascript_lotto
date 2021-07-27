@@ -27,14 +27,15 @@ export default class LottoService {
         this.lottoPriceToCount = {}
         for(let i = 0;  i < this.lottoNum;  i++) {
             this.lottos[i].evaluatePriceBy(winningNumbers, bonusNumber);
-            let price = this.lottos[i].getPriceMoney();
-            if(this.lottoPriceToCount.hasOwnProperty(price)) {
-                this.lottoPriceToCount[price] += 1
+            let reward = this.lottos[i].getReward();
+            if(this.lottoPriceToCount.hasOwnProperty(reward)) {
+                this.lottoPriceToCount[JSON.stringify(reward)] += 1
             } else{
-                this.lottoPriceToCount[price] = 1
+                this.lottoPriceToCount[JSON.stringify(reward)] = 1
             }
         }
         console.log(this.lottoPriceToCount)
+        return this.lottoPriceToCount
     }
 
     calculateProfits() {

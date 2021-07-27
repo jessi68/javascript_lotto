@@ -58,7 +58,7 @@ export const lottoRewardBy = [
     }, 
     {
         price: 0,
-        rank: "등수 없음"
+        rank: "등수 없음",
     } 
 ]
 
@@ -67,13 +67,14 @@ function isSecondPrice(isBonus, RewardBonus, winningNumberCount)  {
 }
 
 export function getPriceResultBy(winningNumberCount, isBonus) {
-    console.log(winningNumberCount, isBonus);
     for(let i = 0; i < lottoRewardBy.length - 1; i++) {
         let reward = lottoRewardBy[i];
         if(isSecondPrice(isBonus, reward.isBonus, winningNumberCount)) {
             return reward;
         }
         if(reward.equalNumber == winningNumberCount) {
+            console.log(reward)
+            console.log(reward["price"])
             return reward;
         }
     }

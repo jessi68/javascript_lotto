@@ -3,6 +3,7 @@ import  {PURCHASED_LOTTO_COUNT, PURCHASED_CONFIRM, PURCHASED_NUMBER, SHOW_NUMBER
 import Lotto from "../domain/lotto.js"
 import  LottoService  from "../service/LottoService.js";
 import {lottoTicketInfoView} from "../view/LottoNumberView.js";
+import { lottoPriceView } from "../view/LottoStatisticsView.js";
 
 export default class LottoController {
     static purchasedNumberView =  document.getElementById(PURCHASED_NUMBER);
@@ -50,12 +51,15 @@ export default class LottoController {
         return parseInt(bonusNumberElement.value)
     }
 
+    
     loadWinningNumber() {
         let winningNumberElements = document.querySelectorAll("[data-winning]");
         let winningNumbers = {}
+
         for(let i = 0; i < winningNumberElements.length; i++) {
             let winningNumberElement = winningNumberElements[i];
             let winningNumber = parseInt(winningNumberElement.value)
+
             if(!winningNumbers.hasOwnProperty(winningNumber))  {
                 winningNumbers[winningNumber] = 1
             } else{
@@ -65,13 +69,22 @@ export default class LottoController {
         return winningNumbers
     }
 
+    makeModalContent(lottoPriceToCount) {
+        let modalBody = document.getElementById("modal-tbody");
+        for(const reward in lottoPriceToCount) {
+            let frame = document.createElement("tr");
+            frame.className = "text-center";
+            frame.innerHTML = lottoPriceView(JSON.parse(reward), lottoPriceToCount[reward]);
+            modalBody.appendChild(frame);
+        }
+    }
+
     showLottoStatistics() {
         let winningNumbers = this.loadWinningNumber();
         let bonusNumber = this.loadBonusNumber();
-        console.log(winningNumbers)
-        this.lottoService.evaluateLottos(winningNumbers, bonusNumber);
+        const lottoPriceToCount = this.lottoService.evaluateLottos(winningNumbers, bonusNumber);
+        this.makeModalContent(lottoPriceToCount);
         this.$modal.classList.add('open')
-        
     }
 
     onModalClose() {
