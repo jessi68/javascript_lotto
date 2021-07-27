@@ -66,12 +66,14 @@ export default class LottoController {
     }
 
     makeModalContent(lottoPriceToCount) {
-        let modalBody = document.getElementById("modal-tbody");
+        if(this.modalContent !== undefined)  {
+            return;
+        }
         for(const reward in lottoPriceToCount) {
-            let frame = document.createElement("tr");
-            frame.className = "text-center";
-            frame.innerHTML = lottoAwardView(JSON.parse(reward), lottoPriceToCount[reward]);
-            modalBody.appendChild(frame);
+            this.modalContent = document.createElement("tr");
+            this.modalContent.className = "text-center";
+            this.modalContent.innerHTML = lottoAwardView(JSON.parse(reward), lottoPriceToCount[reward]);
+            this.modalBody.appendChild(this.modalContent);
         }
     }
 
@@ -84,7 +86,8 @@ export default class LottoController {
     }
 
     onModalClose() {
-        this.$modal.classList.remove('open')
+        this.$modal.classList.remove('open');
+
     }
 
     initConfigure() {
@@ -92,12 +95,14 @@ export default class LottoController {
         document.getElementById(SHOW_NUMBER).addEventListener("click", this.showOrHideNumbers.bind(this));
         document.getElementById(LOTTO_PRICE_RESULTS).addEventListener("click", this.showLottoStatistics.bind(this));
         this.$modalClose.addEventListener('click', this.onModalClose.bind(this));
+        this.modalBody = document.getElementById("modal-tbody");
     }
     
     constructor() {
         this.lottoService = new LottoService();
         this.$modalClose = document.querySelector('.modal-close');
         this.$modal = document.querySelector('.modal');
+        this.modalContent = undefined;
     }
 
 }
