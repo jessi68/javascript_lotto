@@ -12,6 +12,5 @@ export const lottoTicketInfoView = (numbers, order)  => {
     <div class="mx-1 mt-1 text-xl" data-purchased-lotto-number=${order}>${numbers.join(",")}</div>
     </div>
     `;
-
 }
 
