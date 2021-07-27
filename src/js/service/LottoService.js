@@ -1,21 +1,43 @@
 import Lotto from "../domain/lotto.js";
+import getRandomNumber from "../util/RandomGenerator.js";
 
 export default class LottoService {
 
     constructor() {
         this._lottos = []
-        this.lottoNum = 0
+        this._lottoNum = 0
+        this.expenditure = 0;
+        this.sales = 0;
     }
-    
-     purchaseLottos(price) {
 
-        this.lottoNum = Lotto.lottoCountBuyWith(price);
-        this.expenditure = price;
-        for(let i = 0; i < this.lottoNum; i++) {
-            this._lottos.push(new Lotto());
+    static isValidForBuyLotto(price) {
+        return price > 0 && price % Lotto.PRICE == 0
+    }
+
+    static lottoCountBuyWith(price) {
+        return price / Lotto.PRICE;
+    }
+
+    purchaseLotto(numbers) {
+        this.expenditure += Lotto.PRICE;
+        this._lottos.push(new Lotto(numbers));
+        this._lottoNum += 1;
+    }
+
+    purchaseLottosAutomatic(price) {
+        let purchasedNum = LottoService.lottoCountBuyWith(price);
+        for(let i = 0; i < purchasedNum; i++) {
+            this.purchaseLotto(getRandomNumber(Lotto.DIGIT, Lotto.MIN, Lotto.MAX));
         }
+        return purchasedNum;
+    }
 
-        return this.lottoNum;
+    purchaseLottosByManual(numbers)  {
+        let purchasedNum = numbers.length;
+        for(let i = 0; i < purchasedNum; i++) {
+            this.purchaseLotto(numbers[i]);
+        }
+        return purchasedNum;
     }
 
     getLottos() {
@@ -24,7 +46,7 @@ export default class LottoService {
 
     evaluateLottos(winningNumbers, bonusNumber) {
         this.lottoPriceToCount = {}
-        for(let i = 0;  i < this.lottoNum;  i++) {
+        for(let i = 0;  i < this._lottoNum;  i++) {
             this._lottos[i].evaluatePriceBy(winningNumbers, bonusNumber);
             let reward = this._lottos[i].getReward();
             if(this.lottoPriceToCount.hasOwnProperty(reward)) {
@@ -37,8 +59,7 @@ export default class LottoService {
     }
 
     calculateProfits() {
-        this.sales = 0
-        for(let i = 0; i < this.lottoNum; i++) {
+        for(let i = 0; i < this._lottoNum; i++) {
             this.sales += this._lottos[i].getPriceMoney();
         }
         this.profit = this.sales - this.expenditure;

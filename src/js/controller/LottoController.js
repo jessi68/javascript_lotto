@@ -9,7 +9,7 @@ export default class LottoController {
     static purchasedNumberView =  document.getElementById(PURCHASED_NUMBER);
  
     purchaseLotto(price) {    
-        this.number = this.lottoService.purchaseLottos(price);
+        this.number = this.lottoService.purchaseLottosAutomatic(price);
         const PURCHASE_INFO = `총 ${this.number} 개를 구매하였습니다`
         let element = document.getElementById(PURCHASED_LOTTO_COUNT);
         element.innerHTML = PURCHASE_INFO
@@ -18,7 +18,7 @@ export default class LottoController {
     tryPurchaseLottos() {
         let price = parseInt(document.getElementById(ID_OF_LOTTO_PRICE_ELEMENT).value);
         
-        if(Lotto.isValidForBuyLotto(price)) {
+        if(LottoService.isValidForBuyLotto(price)) {
             this.purchaseLotto(price);
         } else{
             alert(LOTTO_ERROR_MESSAGE.INVALID_PRICE)

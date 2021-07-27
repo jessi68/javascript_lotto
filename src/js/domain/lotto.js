@@ -4,20 +4,20 @@ import { getPriceResultBy } from "./enum/LottoReward.js";
 export default class Lotto{
 
     #priceResult
-    static #MIN
-    static #MAX
-    static #DIGIT
-    static #PRICE
+    static MIN
+    static MAX
+    static DIGIT
+    static PRICE
 
     static initLottoInfo() {
-        Lotto.#MIN = 1;
-        Lotto.#MAX = 45;
-        Lotto.#DIGIT = 6;
-        Lotto.#PRICE = 1000;
+        Lotto.MIN = 1;
+        Lotto.MAX = 45;
+        Lotto.DIGIT = 6;
+        Lotto.PRICE = 1000;
     }
 
-    constructor() {
-        this.numbers = getRandomNumber(Lotto.#DIGIT, Lotto.#MIN, Lotto.#MAX);
+    constructor(numbers) {
+        this.numbers = numbers
     }
 
     static isValidNumbers(numbers) {
@@ -30,22 +30,19 @@ export default class Lotto{
     }
 
     static isLottoNumberValid(num)  {
-        if(num >= Lotto.#MIN && num <= Lotto.#MAX) {
+        if(num >= Lotto.MIN && num <= Lotto.MAX) {
           return true;
         }
         return false;
     }
 
-    static isValidForBuyLotto(price) {
-        return price > 0 && price % Lotto.#PRICE == 0
-    }
-
-    static lottoCountBuyWith(price) {
-        return price / Lotto.#PRICE;
-    }
 
     getNumbers() {
         return this.numbers;
+    }
+
+    setNumbers(numbers) {
+        this.numbers = numbers;
     }
 
     saveNumberToCount() {
