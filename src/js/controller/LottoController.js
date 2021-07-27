@@ -42,12 +42,11 @@ export default class LottoController {
     }
 
     loadBonusNumber() {
-        let bonusNumberElement = document.getElementById("bonus-number");
-        return parseInt(bonusNumberElement.value)
+        return parseInt(this.$bonusWinningNumber.value)
     }
 
     loadWinningNumber() {
-        let winningNumberElements = document.querySelectorAll("[data-winning]");
+        let winningNumberElements = this.$winningNumbers;
         let winningNumbers = {}
 
         for(let i = 0; i < winningNumberElements.length; i++) {
@@ -92,11 +91,20 @@ export default class LottoController {
 
     restart() {
         this.init();
-        console.log("aa")
         clearInput(this.$inputPrice);
         clearHTML(this.$lottoNumbersView)
         clearText(this.$purchasedResult);
         clearHTML(this.modalBody)
+    }
+
+    restrictInputTooMuch(event)  {
+        let curOrder = parseInt(event.target.getAttribute("data-winning"));
+        console.log(curOrder)
+        console.log(event.target.value)
+        if(event.target.value.length == 2 && curOrder < 6) {
+            console.log("ddd");
+            this.$winningNumbers[curOrder + 1].focus();
+        }
     }
 
     connectViewAndModel() {
@@ -105,6 +113,10 @@ export default class LottoController {
         document.getElementById(LOTTO_PRICE_RESULTS).addEventListener("click", this.showLottoStatistics.bind(this));
         this.$restart.addEventListener("click", this.restart.bind(this));
         this.$modalClose.addEventListener('click', this.onModalClose.bind(this));
+        console.log(this.$winningNumbers)
+        this.$winningNumbers.forEach(function($winningNumber) {
+            $winningNumber.addEventListener('input', this.restrictInputTooMuch.bind(this));
+        }.bind(this));
     }
     
     init() {
@@ -118,6 +130,8 @@ export default class LottoController {
         this.$inputPrice = $(INPUT_PURCHASE_PRICE);
         this.$toggleButton = $(SHOW_NUMBER);
         this.$restart = $(RESTART);
+        this.$winningNumbers = document.querySelectorAll("[data-winning]");
+        this.$bonusWinningNumber = $("bonus-number");
         this.connectViewAndModel();
     }
 
