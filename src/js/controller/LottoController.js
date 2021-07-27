@@ -3,7 +3,7 @@ import  {PURCHASED_LOTTO_COUNT, PURCHASED_CONFIRM, PURCHASED_NUMBER, SHOW_NUMBER
 import Lotto from "../domain/lotto.js"
 import  LottoService  from "../service/LottoService.js";
 import {lottoTicketInfoView} from "../view/LottoNumberView.js";
-import { lottoPriceView } from "../view/LottoStatisticsView.js";
+import { lottoAwardView } from "../view/LottoStatisticsView.js";
 
 export default class LottoController {
     static purchasedNumberView =  document.getElementById(PURCHASED_NUMBER);
@@ -70,7 +70,7 @@ export default class LottoController {
         for(const reward in lottoPriceToCount) {
             let frame = document.createElement("tr");
             frame.className = "text-center";
-            frame.innerHTML = lottoPriceView(JSON.parse(reward), lottoPriceToCount[reward]);
+            frame.innerHTML = lottoAwardView(JSON.parse(reward), lottoPriceToCount[reward]);
             modalBody.appendChild(frame);
         }
     }

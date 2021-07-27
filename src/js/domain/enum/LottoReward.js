@@ -24,7 +24,7 @@
 <td class="p-3">n개</td> */}
 
 let DEFAULT_BONUS_VALUE = false
-
+let DEFAULT_EQUAL_NUMBER = 0
 export const lottoRewardBy = [
 	 {
 		"price": 200000000,
@@ -59,6 +59,8 @@ export const lottoRewardBy = [
     {
         price: 0,
         rank: "등수 없음",
+        equalNumber: DEFAULT_EQUAL_NUMBER,
+        isBonus: DEFAULT_BONUS_VALUE
     } 
 ]
 

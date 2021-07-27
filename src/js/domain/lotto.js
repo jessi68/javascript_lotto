@@ -58,7 +58,7 @@ export default class Lotto{
 
     }
 
-    evaluatePriceBy(winningNumbers, bonusNumber) {
+    giveAwardBy(winningNumbers, bonusNumber) {
         this.saveNumberToCount();
         let equalNumber = 0
         let isBonus = false;
@@ -71,6 +71,12 @@ export default class Lotto{
             isBonus = true;
         }
         this.#priceResult = getPriceResultBy(equalNumber, isBonus);
+        this.#priceResult["isBonus"] = isBonus;
+        this.#priceResult["equalNumber"] = equalNumber
+    }
+
+    includes(bonusNumber) {
+        this.numbers.includes(bonusNumber);
     }
 
     getReward() {
