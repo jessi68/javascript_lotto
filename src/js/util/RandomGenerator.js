@@ -1,14 +1,12 @@
 
-export default function getRandomNumber(digit) {
-    let MAX = 46;
-    let MIN = 0;
-
+export default function getRandomNumber(digit, MIN, MAX) {
+    
     let arr =  [];
 
     let i = 0;
     
     while(i < digit) {
-        const number = Math.floor(Math.random() * (MAX - MIN) + MIN);
+        const number = Math.floor(Math.random() * (MAX + 1 - MIN) + MIN);
         if(arr.indexOf(number) === -1) {
             arr.push(number); 
             i++

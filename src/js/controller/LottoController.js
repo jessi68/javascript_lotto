@@ -1,4 +1,4 @@
-import { LOTTO_INVALID_PRICE } from "../consts/ErrorMEssage.js";
+import { LOTTO_ERROR_MESSAGE } from "../consts/ErrorMEssage.js";
 import  {PURCHASED_LOTTO_COUNT, PURCHASED_CONFIRM, PURCHASED_NUMBER, SHOW_NUMBER, ID_OF_LOTTO_PRICE_ELEMENT, LOTTO_PRICE_RESULTS} from "../consts/LottoUiId.js";
 import Lotto from "../domain/lotto.js"
 import  LottoService  from "../service/LottoService.js";
@@ -7,11 +7,7 @@ import { lottoPriceView } from "../view/LottoStatisticsView.js";
 
 export default class LottoController {
     static purchasedNumberView =  document.getElementById(PURCHASED_NUMBER);
-
-    isMoneyValid(price) {
-        return price > 0 && price % 1000 == 0 
-    }
-    
+ 
     purchaseLotto(price) {    
         this.number = this.lottoService.purchaseLottos(price);
         const PURCHASE_INFO = `총 ${this.number} 개를 구매하였습니다`
@@ -22,10 +18,10 @@ export default class LottoController {
     tryPurchaseLottos() {
         let price = parseInt(document.getElementById(ID_OF_LOTTO_PRICE_ELEMENT).value);
         
-        if(this.isMoneyValid(price) == true) {
+        if(Lotto.isValidForBuyLotto(price)) {
             this.purchaseLotto(price);
         } else{
-            alert(LOTTO_INVALID_PRICE)
+            alert(LOTTO_ERROR_MESSAGE.INVALID_PRICE)
         }
     }
     

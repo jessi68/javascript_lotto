@@ -2,7 +2,6 @@ import Lotto from "../domain/lotto.js";
 
 export default class LottoService {
 
-    static lottoPrice = 1000;
     constructor() {
         this.lottos = []
         this.lottoNum = 0
@@ -10,8 +9,8 @@ export default class LottoService {
     
      purchaseLottos(price) {
 
-        this.lottoNum = price / LottoService.lottoPrice;
-
+        this.lottoNum = Lotto.lottoCountBuyWith(price);
+        this.expenditure = price;
         for(let i = 0; i < this.lottoNum; i++) {
             this.lottos.push(new Lotto());
         }
@@ -34,17 +33,15 @@ export default class LottoService {
                 this.lottoPriceToCount[JSON.stringify(reward)] = 1
             }
         }
-        console.log(this.lottoPriceToCount)
         return this.lottoPriceToCount
     }
 
     calculateProfits() {
-        let expenditure  = LottoService.lottoPrice * this.lottoNum;
-        let sales = 0
+        this.sales = 0
         for(let i = 0; i < this.lottoNum; i++) {
-            sales += this.lottos[i].getPriceMoney();
+            this.sales += this.lottos[i].getPriceMoney();
         }
-        let profit = sales - expenditure;
-        return profit;
+        this.profit = this.sales - this.expenditure;
+        return this.profit;
     }
 }

@@ -2,16 +2,40 @@ import getRandomNumber from "../util/RandomGenerator.js"
 import { getPriceResultBy } from "./enum/LottoReward.js";
 
 export default class Lotto{
-    static DIGIT = 6;
-    static PRICE = 1000;
+
     #priceResult
-    constructor() {
-      
-        this.numbers = getRandomNumber(Lotto.DIGIT);
-      
+    static #MIN
+    static #MAX
+    static #DIGIT
+    static #PRICE
+
+    static initLottoInfo() {
+        Lotto.#MIN = 1;
+        Lotto.#MAX = 45;
+        Lotto.#DIGIT = 6;
+        Lotto.#PRICE = 1000;
     }
 
-     getNumbers() {
+    constructor() {
+        this.numbers = getRandomNumber(Lotto.#DIGIT, Lotto.#MIN, Lotto.#MAX);
+    }
+
+    static isLottoNumberValid(num)  {
+        if(num >= Lotto.#MIN && num <= Lotto.#MAX) {
+          return true;
+        }
+        return false;
+    }
+
+    static isValidForBuyLotto(price) {
+        return price > 0 && price % Lotto.#PRICE == 0
+    }
+
+    static lottoCountBuyWith(price) {
+        return price / Lotto.#PRICE;
+    }
+
+    getNumbers() {
         return this.numbers;
     }
 
@@ -33,7 +57,6 @@ export default class Lotto{
         let equalNumber = 0
         let isBonus = false;
         for(const number in winningNumbers) {
-            let count = winningNumbers[number];
             if(this.numberToCount.hasOwnProperty(number)) {
                 equalNumber += 1;
             }
@@ -43,7 +66,6 @@ export default class Lotto{
         }
         this.#priceResult = getPriceResultBy(equalNumber, isBonus);
     }
-
 
     getReward() {
         return this.#priceResult;

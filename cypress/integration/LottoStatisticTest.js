@@ -8,7 +8,7 @@ describe("lotto 통계 테스트", () => {
       cy.get('button[id="'+ PURCHASED_CONFIRM  + '"]').click();
     };
 
-    it("당첨 번호가 5, 1, 7, 20, 14, 21 보너스 번호가  10 일때 ", () => {
+    it("당첨 번호 중 ", () => {
         typePurchasePriceAndClickSubmitButton(3000);
         
         cy.get('input[id="'+ SHOW_NUMBER + '"]').click({force: true});

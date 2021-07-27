@@ -9,7 +9,7 @@ const lottoTicketIconView = () =>  {
 export const lottoTicketInfoView = (numbers, order)  => {
     return `<div class="d-flex">
     ${lottoTicketIconView()}
-    <div class="mx-1 mt-1 text-xl">${numbers.join(",")}</div>
+    <div class="mx-1 mt-1 text-xl" data-purchased-lotto-number=${order}>${numbers.join(",")}</div>
     </div>
     `;
 

@@ -5,7 +5,6 @@ export const incomeProportionView = (incomeProportion) => {
 }
 
 export const lottoPriceView = (reward, lottoNum) => {
-    console.log(reward)
     return   `  <td class="p-3">${reward["equalNumber"]} 개</td>
                 <td class="p-3">보너스 볼 ${+reward["isBonus"]} 개</td>
                 <td class="p-3">${reward["price"]} 개</td>

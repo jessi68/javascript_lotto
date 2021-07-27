@@ -1,4 +1,5 @@
 import LottoController from "./controller/LottoController.js"
+import Lotto from "./domain/lotto.js";
 
 
 
@@ -12,4 +13,5 @@ class App {
   }
 }
 
+Lotto.initLottoInfo();
 new App();
