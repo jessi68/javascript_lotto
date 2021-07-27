@@ -20,6 +20,15 @@ export default class Lotto{
         this.numbers = getRandomNumber(Lotto.#DIGIT, Lotto.#MIN, Lotto.#MAX);
     }
 
+    static isValidNumbers(numbers) {
+        numbers.forEach(function(number) {
+            if(!Lotto.isLottoNumberValid(number)) {
+                return false;
+            }
+        })
+        return true;
+    }
+
     static isLottoNumberValid(num)  {
         if(num >= Lotto.#MIN && num <= Lotto.#MAX) {
           return true;
