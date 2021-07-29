@@ -13,7 +13,7 @@
 
 ## 🔥 Projects!
 명령어: cypress 여는 명령어
-/node_modules\.bin\cypress open
+./node_modules\.bin\cypress open
 <p align="middle">
   <img width="400" src="./src/images/lotto_ui.png">
 </p>

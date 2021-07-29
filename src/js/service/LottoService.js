@@ -1,3 +1,4 @@
+import { getJSONByRewardKey } from "../domain/enum/LottoReward.js";
 import Lotto from "../domain/lotto.js";
 import getRandomNumber from "../util/RandomGenerator.js";
 
@@ -45,15 +46,11 @@ export default class LottoService {
     }
 
     evaluateLottos(winningNumbers, bonusNumber) {
-        this.lottoPriceToCount = {}
+        this.lottoPriceToCount = getJSONByRewardKey();
         for(let i = 0;  i < this._lottoNum;  i++) {
             this._lottos[i].giveAwardBy(winningNumbers, bonusNumber);
             let reward = this._lottos[i].getReward();
-            if(this.lottoPriceToCount.hasOwnProperty(reward)) {
-                this.lottoPriceToCount[JSON.stringify(reward)] += 1
-            } else{
-                this.lottoPriceToCount[JSON.stringify(reward)] = 1
-            }
+            this.lottoPriceToCount[JSON.stringify(reward)] += 1
         }
         this.calculateProfits();
         return this.lottoPriceToCount

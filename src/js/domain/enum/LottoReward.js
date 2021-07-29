@@ -25,6 +25,7 @@
 
 let DEFAULT_BONUS_VALUE = false
 let DEFAULT_EQUAL_NUMBER = 0
+
 export const lottoRewardBy = [
 	 {
 		"price": 200000000,
@@ -81,3 +82,10 @@ export function getPriceResultBy(winningNumberCount, isBonus) {
     return lottoRewardBy[lottoRewardBy.length - 1];
 }
 
+export function getJSONByRewardKey() {
+    const lottoPriceToCount = {};
+    for(let i = 0; i < lottoRewardBy.length; i++) {
+        lottoPriceToCount[JSON.stringify(lottoRewardBy[i])] = 0;
+    }
+    return lottoPriceToCount;
+}
