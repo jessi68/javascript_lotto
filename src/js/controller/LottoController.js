@@ -2,7 +2,7 @@ import { LOTTO_ERROR_MESSAGE } from "../consts/ErrorMEssage.js";
 import  {PURCHASED_LOTTO_COUNT, PURCHASED_CONFIRM, PURCHASED_LOTTO_NUMBERS, SHOW_NUMBER, INPUT_PURCHASE_PRICE, LOTTO_PRICE_RESULTS, RESTART} from "../consts/LottoUiId.js";
 import Lotto from "../domain/lotto.js"
 import  LottoService  from "../service/LottoService.js";
-import { $, clearHTML, clearInput } from "../util/dom.js";
+import { $, clearHTML, clearInput, clearInputs, clearText } from "../util/maipulateDom.js";
 import {lottoTicketInfoView} from "../view/LottoNumberView.js";
 import { purchasedNumView } from "../view/LottoPurchase.js";
 import { incomeProportionView, lottoAwardView } from "../view/LottoStatisticsView.js";
@@ -92,17 +92,16 @@ export default class LottoController {
     restart() {
         this.init();
         clearInput(this.$inputPrice);
-        clearHTML(this.$lottoNumbersView)
+        clearHTML(this.$lottoNumbersView);
         clearText(this.$purchasedResult);
-        clearHTML(this.modalBody)
+        clearHTML(this.modalBody);
+        clearInputs(this.$winningNumbers);
+        clearInput(this.$bonusWinningNumber);
     }
 
     restrictInputTooMuch(event)  {
         let curOrder = parseInt(event.target.getAttribute("data-winning"));
-        console.log(curOrder)
-        console.log(event.target.value)
         if(event.target.value.length == 2 && curOrder < 6) {
-            console.log("ddd");
             this.$winningNumbers[curOrder + 1].focus();
         }
     }
@@ -113,7 +112,6 @@ export default class LottoController {
         document.getElementById(LOTTO_PRICE_RESULTS).addEventListener("click", this.showLottoStatistics.bind(this));
         this.$restart.addEventListener("click", this.restart.bind(this));
         this.$modalClose.addEventListener('click', this.onModalClose.bind(this));
-        console.log(this.$winningNumbers)
         this.$winningNumbers.forEach(function($winningNumber) {
             $winningNumber.addEventListener('input', this.restrictInputTooMuch.bind(this));
         }.bind(this));

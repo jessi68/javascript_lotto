@@ -10,4 +10,10 @@ export const clearInput = $input => {
 
 export const clearText = $node => {
     $node.innerText = ""
+};
+
+export const clearInputs = $inputs => {
+    $inputs.forEach($input => {
+        clearInput($input);
+    });
 }
