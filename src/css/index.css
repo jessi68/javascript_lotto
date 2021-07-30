@@ -13,7 +13,7 @@ body {
   margin: 0 auto;
 }
 
-.winning-number {
+.winning-number .manual-purchase-number {
   width: 30px;
   height: 36px;
 }
@@ -22,4 +22,3 @@ body {
   width: 30px;
   height: 36px;
 }
-
