@@ -5,7 +5,8 @@
     <title>🎱 행운의 로또</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="./src/css/index.css" />
-    <link rel="stylesheet" href="./src/css/modall.css" />
+    <link rel="stylesheet" href="./src/css/shared/index.css" />
+    <link rel="stylesheet" href="./src/css/ui/index.css" />
   </head>
   <body>
     <div id="app" class="p-3">
@@ -21,9 +22,11 @@
                 type="number"
                 class="w-100 mr-2 pl-2"
                 placeholder="구입 금액"
-                id = "로또 금액 입력 칸"
-              />
-              <button type="button" class="btn btn-cyan" id="구입 제출">확인</button>
+                id = "로또 금액 입력 칸"/>
+            </div>
+            <div class="submit-purchase">
+              <button type="button" class="btn btn-cyan" id="자동 구입">자동 구매</button> 
+              <button type="button" class="btn btn-cyan" id="수동 구입">수동 구매</button>
             </div>
           </form>
           <section class="mt-9">
@@ -37,11 +40,7 @@
               </div>
             </div>
             <div class="d-flex flex-wrap" id="구입한 번호들">
-              <!-- <span class="mx-1 text-4xl">🎟️ </span>
-              <span class="mx-1 text-4xl">🎟️ </span>
-              <span class="mx-1 text-4xl">🎟️ </span>
-              <span class="mx-1 text-4xl">🎟️ </span>
-              <span class="mx-1 text-4xl">🎟️ </span> -->
+           
             </div>
           </section>
           <form class="mt-9">
@@ -117,7 +116,6 @@
                 <tr class="text-center">
                   <th class="p-3">일치 갯수</th>
                   <th class="p-3">당첨금</th>
-                  <th class="p-3">보너스 볼</th>
                   <th class="p-3">당첨 갯수</th>
                 </tr>
               </thead>

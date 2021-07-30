@@ -1,5 +1,5 @@
 import { LOTTO_ERROR_MESSAGE } from "../consts/ErrorMEssage.js";
-import  {PURCHASED_LOTTO_COUNT, PURCHASED_CONFIRM, PURCHASED_LOTTO_NUMBERS, SHOW_NUMBER, INPUT_PURCHASE_PRICE, LOTTO_PRICE_RESULTS, RESTART} from "../consts/LottoUiId.js";
+import  {PURCHASED_LOTTO_COUNT, PURCHASE_AUTOMATICALLY, PURCHASED_LOTTO_NUMBERS, SHOW_NUMBER, INPUT_PURCHASE_PRICE, LOTTO_PRICE_RESULTS, RESTART} from "../consts/LottoUiId.js";
 import Lotto from "../domain/lotto.js"
 import  LottoService  from "../service/LottoService.js";
 import { $, clearHTML, clearInput, clearInputs, clearText } from "../util/maipulateDom.js";
@@ -108,7 +108,7 @@ export default class LottoController {
     }
 
     connectViewAndModel() {
-        document.getElementById(PURCHASED_CONFIRM).addEventListener("click", this.tryPurchaseLottos.bind(this));
+        document.getElementById(PURCHASE_AUTOMATICALLY).addEventListener("click", this.tryPurchaseLottos.bind(this));
         this.$toggleButton.addEventListener("click", this.showOrHideLottoNumbers.bind(this));
         document.getElementById(LOTTO_PRICE_RESULTS).addEventListener("click", this.showLottoStatistics.bind(this));
         this.$restart.addEventListener("click", this.restart.bind(this));
