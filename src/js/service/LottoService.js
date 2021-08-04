@@ -11,8 +11,7 @@ export default class LottoService {
         this._expenditure = 0;
         this._sales = 0;
         this.lottoPriceToCount = getJSONByRewardKey();
-        console.log(this._lottos);
-        console.log(this.lottoPriceToCount);
+    
     }
 
     static isValidForBuyLotto(price) {

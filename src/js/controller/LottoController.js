@@ -70,7 +70,6 @@ export default class LottoController {
         }
         
         for(const reward in lottoPriceToCount) {
-            console.log(reward);
             this.modalContent = document.createElement("tr");
             this.modalContent.className = "text-center";
             this.modalContent.innerHTML = lottoAwardView(JSON.parse(reward), lottoPriceToCount[reward]);
