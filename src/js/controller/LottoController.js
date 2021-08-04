@@ -3,7 +3,7 @@ import  {PURCHASED_LOTTO_COUNT, PURCHASE_AUTOMATICALLY, PURCHASED_LOTTO_NUMBERS,
 import Lotto from "../domain/lotto.js"
 import  LottoService  from "../service/LottoService.js";
 import { $, clearHTML, clearInput, clearInputs, clearText } from "../util/maipulateDom.js";
-import { howManyNumberToBuy } from "../view/LottoManualInputView.js";
+import { howManyNumberToBuy, lottoManualInputView } from "../view/LottoManualInputView.js";
 import {lottoTicketInfoView} from "../view/LottoNumberView.js";
 import { purchasedNumView } from "../view/LottoPurchase.js";
 import { incomeProportionView, lottoAwardView } from "../view/LottoStatisticsView.js";
@@ -110,18 +110,21 @@ export default class LottoController {
     }
 
     showLottoNumberInputView() {
-
-    }
-
-    showManualInputForms(event) {
-        let div = document.createElement("div");
-        div.innerHTML = howManyNumberToBuy();
-        this.$manualPurchaseForm.appendChild(div);
         this.manualPrice = $(INPUT_MANUAL_PURCHASE_PRICE).value;
-        this.manualPurchaseSubmit = $(MANUAL_PURCHASE_CONFIRM);
-        this.manualPurchaseSubmit.addEventListener("click", this.showLottoNumberInputView.bind(this))
+        let div = document.createElement("div");
+        let lottoNum = this.manualPrice / 1000;
+        for(let i = 0; i < lottoNum; i++) {
+            div.innerHTML += lottoManualInputView(i);
+        }
     }
 
+    async sleep(time) {
+        return new Promise(resolve => setTimeout(resolve, time));
+    }
+    showManualInputForms(event) {
+        const inputManual = $("lotto-manual");
+        inputManual.style.visibility = "visible";
+    }
     
     connectViewAndModel() {
         document.getElementById(PURCHASE_AUTOMATICALLY).addEventListener("click", this.tryPurchaseLottos.bind(this));
@@ -150,7 +153,8 @@ export default class LottoController {
         this.$bonusWinningNumber = $("bonus-number");
         this.$manuallyBuyingButton = $(PURCHASE_MANUALLY);
         this.$manualPurchaseForm = $("lotto-manual");
-
+        this.manualPurchaseSubmit = $(MANUAL_PURCHASE_CONFIRM);
+        this.manualPurchaseSubmit.addEventListener("click", this.showLottoNumberInputView.bind(this));
 
         this.connectViewAndModel();
     }

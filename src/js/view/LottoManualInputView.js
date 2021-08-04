@@ -1,4 +1,4 @@
-import { MANUAL_PURCHASE_CONFIRM, INPUT_MANUAL_PURCHASE_PRICE, MANUAL_INPUT_LOTTO_NUM } from "../consts/LottoUiId";
+import { MANUAL_PURCHASE_CONFIRM, INPUT_MANUAL_PURCHASE_PRICE, MANUAL_INPUT_LOTTO_NUM } from "../consts/LottoUiId.js";
 
 export const lottoManualInputView = (index) => {
     return `
