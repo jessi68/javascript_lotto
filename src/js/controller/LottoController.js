@@ -137,7 +137,10 @@ export default class LottoController {
         }.bind(this));
         this.$manuallyBuyingButton.addEventListener("click", this.showManualInputForms.bind(this))
     }
-    
+    constructor() {
+        this.init();
+        this.connectViewAndModel();
+    }
     init() {
         this.lottoService = new LottoService();
        
@@ -157,7 +160,7 @@ export default class LottoController {
         this.$manualPurchaseForm = $("lotto-manual");
         this.manualPurchaseSubmit = $(MANUAL_PURCHASE_CONFIRM);
         this.manualPurchaseSubmit.addEventListener("click", this.showLottoNumberInputView.bind(this));
-        this.connectViewAndModel();
+     
     }
 
 }
