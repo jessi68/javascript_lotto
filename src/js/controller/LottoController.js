@@ -1,4 +1,4 @@
-import { LOTTO_ERROR_MESSAGE } from "../consts/ErrorMEssage.js";
+import { LOTTO_ERROR_MESSAGE } from "../consts/ErrorMessage.js";
 import  {PURCHASED_LOTTO_COUNT, PURCHASE_AUTOMATICALLY, PURCHASED_LOTTO_NUMBERS, SHOW_NUMBER, INPUT_PURCHASE_PRICE, LOTTO_PRICE_RESULTS, RESTART, PURCHASE_MANUALLY, MANUAL_PURCHASE_CONFIRM, INPUT_MANUAL_PURCHASE_PRICE} from "../consts/LottoUiId.js";
 import Lotto from "../domain/lotto.js"
 import  LottoService  from "../service/LottoService.js";
