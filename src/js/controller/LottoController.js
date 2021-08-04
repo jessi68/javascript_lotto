@@ -121,6 +121,7 @@ export default class LottoController {
     async sleep(time) {
         return new Promise(resolve => setTimeout(resolve, time));
     }
+
     showManualInputForms(event) {
         const inputManual = $("lotto-manual");
         inputManual.style.visibility = "visible";
@@ -140,6 +141,8 @@ export default class LottoController {
     
     init() {
         this.lottoService = new LottoService();
+       
+        this.lottoService.init();
         this.$modalClose = document.querySelector('.modal-close');
         this.$modal = document.querySelector('.modal');
         this.modalContent = undefined;
@@ -155,7 +158,6 @@ export default class LottoController {
         this.$manualPurchaseForm = $("lotto-manual");
         this.manualPurchaseSubmit = $(MANUAL_PURCHASE_CONFIRM);
         this.manualPurchaseSubmit.addEventListener("click", this.showLottoNumberInputView.bind(this));
-
         this.connectViewAndModel();
     }
 

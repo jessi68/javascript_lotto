@@ -4,11 +4,15 @@ import getRandomNumber from "../util/RandomGenerator.js";
 
 export default class LottoService {
 
-    constructor() {
-        this._lottos = []
+    init() {
+        this._lottos  = [];
+        this._lottos.length = 0;
         this._lottoNum = 0
         this._expenditure = 0;
         this._sales = 0;
+        this.lottoPriceToCount = getJSONByRewardKey();
+        console.log(this._lottos);
+        console.log(this.lottoPriceToCount);
     }
 
     static isValidForBuyLotto(price) {
@@ -30,6 +34,7 @@ export default class LottoService {
         for(let i = 0; i < purchasedNum; i++) {
             this.purchaseLotto(getRandomNumber(Lotto.DIGIT, Lotto.MIN, Lotto.MAX));
         }
+        console.log(this._lottos);
         return purchasedNum;
     }
 
@@ -46,7 +51,7 @@ export default class LottoService {
     }
 
     evaluateLottos(winningNumbers, bonusNumber) {
-        this.lottoPriceToCount = getJSONByRewardKey();
+     
         for(let i = 0;  i < this._lottoNum;  i++) {
             this._lottos[i].giveAwardBy(winningNumbers, bonusNumber);
             let reward = this._lottos[i].getReward();

@@ -65,6 +65,7 @@ export const lottoRewardBy = [
     } 
 ]
 
+
 function isSecondPrice(isBonus, RewardBonus, winningNumberCount)  {
     return isBonus == true && RewardBonus == true && winningNumberCount == 5
 }
