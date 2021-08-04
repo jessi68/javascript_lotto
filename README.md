@@ -18,6 +18,8 @@
   <img width="400" src="./src/images/lotto_ui.png">
 </p>
 
+## 리팩토링 해야 할 것들
+- 상수에서 manual 관련된 상수, auto 관련 상수 따로 영역을 구분하기. json 형태로
 
 ### 🎯 step1 구입 기능
 
@@ -92,3 +94,4 @@ live-server 폴더명
 ## 📝 License
 
 This project is [MIT](https://github.com/woowacourse/javascript-lotto/blob/main/LICENSE) licensed.
+

@@ -12,7 +12,7 @@ describe("lotto 구입 테스트", () => {
     });
     
     const typePurchasePriceAndClickSubmitButton = (purchasePrice) => {
-      cy.get('input[id="'+ ID_OF_LOTTO_PRICE_ELEMENT  + '"]').type(purchasePrice);
+      cy.get('input[id="'+ INPUT_PURCHASE_PRICE  + '"]').type(purchasePrice);
       cy.get('button[id="'+ PURCHASED_CONFIRM  + '"]').click();
     };
 

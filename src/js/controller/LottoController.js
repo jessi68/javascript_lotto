@@ -1,8 +1,9 @@
 import { LOTTO_ERROR_MESSAGE } from "../consts/ErrorMEssage.js";
-import  {PURCHASED_LOTTO_COUNT, PURCHASE_AUTOMATICALLY, PURCHASED_LOTTO_NUMBERS, SHOW_NUMBER, INPUT_PURCHASE_PRICE, LOTTO_PRICE_RESULTS, RESTART} from "../consts/LottoUiId.js";
+import  {PURCHASED_LOTTO_COUNT, PURCHASE_AUTOMATICALLY, PURCHASED_LOTTO_NUMBERS, SHOW_NUMBER, INPUT_PURCHASE_PRICE, LOTTO_PRICE_RESULTS, RESTART, PURCHASE_MANUALLY, MANUAL_PURCHASE_CONFIRM, INPUT_MANUAL_PURCHASE_PRICE} from "../consts/LottoUiId.js";
 import Lotto from "../domain/lotto.js"
 import  LottoService  from "../service/LottoService.js";
 import { $, clearHTML, clearInput, clearInputs, clearText } from "../util/maipulateDom.js";
+import { howManyNumberToBuy } from "../view/LottoManualInputView.js";
 import {lottoTicketInfoView} from "../view/LottoNumberView.js";
 import { purchasedNumView } from "../view/LottoPurchase.js";
 import { incomeProportionView, lottoAwardView } from "../view/LottoStatisticsView.js";
@@ -16,6 +17,7 @@ export default class LottoController {
 
     tryPurchaseLottos() {
         let price = parseInt(this.$inputPrice.value.trim());
+        this.totalPrice = price;
         
         if(LottoService.isValidForBuyLotto(price)) {
             this.purchaseLotto(price);
@@ -107,6 +109,20 @@ export default class LottoController {
         }
     }
 
+    showLottoNumberInputView() {
+
+    }
+
+    showManualInputForms(event) {
+        let div = document.createElement("div");
+        div.innerHTML = howManyNumberToBuy();
+        this.$manualPurchaseForm.appendChild(div);
+        this.manualPrice = $(INPUT_MANUAL_PURCHASE_PRICE).value;
+        this.manualPurchaseSubmit = $(MANUAL_PURCHASE_CONFIRM);
+        this.manualPurchaseSubmit.addEventListener("click", this.showLottoNumberInputView.bind(this))
+    }
+
+    
     connectViewAndModel() {
         document.getElementById(PURCHASE_AUTOMATICALLY).addEventListener("click", this.tryPurchaseLottos.bind(this));
         this.$toggleButton.addEventListener("click", this.showOrHideLottoNumbers.bind(this));
@@ -116,6 +132,7 @@ export default class LottoController {
         this.$winningNumbers.forEach(function($winningNumber) {
             $winningNumber.addEventListener('input', this.restrictInputTooMuch.bind(this));
         }.bind(this));
+        this.$manuallyBuyingButton.addEventListener("click", this.showManualInputForms.bind(this))
     }
     
     init() {
@@ -131,6 +148,10 @@ export default class LottoController {
         this.$restart = $(RESTART);
         this.$winningNumbers = document.querySelectorAll("[data-winning]");
         this.$bonusWinningNumber = $("bonus-number");
+        this.$manuallyBuyingButton = $(PURCHASE_MANUALLY);
+        this.$manualPurchaseForm = $("lotto-manual");
+
+
         this.connectViewAndModel();
     }
 

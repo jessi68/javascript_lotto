@@ -6,3 +6,6 @@ export const SHOW_NUMBER = "번호 보기"
 export const PURCHASED_LOTTO_COUNT =  "구입 개수"
 export const LOTTO_PRICE_RESULTS = "lotto-results-confirm";
 export const RESTART = "restart"
+export const  INPUT_MANUAL_PURCHASE_PRICE = "수동 구입 금액";
+export const MANUAL_PURCHASE_CONFIRM = "수동 구입 확인";
+export const MANUAL_INPUT_LOTTO_NUM = "수동 구입 로또 번호 ";
