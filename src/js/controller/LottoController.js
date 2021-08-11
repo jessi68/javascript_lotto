@@ -99,6 +99,7 @@ export default class LottoController {
         clearHTML(this.modalBody);
         clearInputs(this.$winningNumbers);
         clearInput(this.$bonusWinningNumber);
+        clearHTML(this.manualLottoInput);
     }
 
     restrictInputTooMuch(event)  {
@@ -121,9 +122,25 @@ export default class LottoController {
         return new Promise(resolve => setTimeout(resolve, time));
     }
 
+    showManualLottoNumbers() {
+        let number = this.manualPrice / Lotto.PRICE;
+        for(let i = 0; i < number; i++) {
+            this.manualLottoInput.innerHTML += lottoManualInputView(i);
+        }
+
+    }
+
     showManualInputForms(event) {
         const inputManual = $("lotto-manual");
         inputManual.style.visibility = "visible";
+        let button = $(MANUAL_PURCHASE_CONFIRM);
+        inputManual.addEventListener("click", function(event) {
+            this.manualPrice = $(INPUT_MANUAL_PURCHASE_PRICE).value;
+            if(event.target.id === MANUAL_PURCHASE_CONFIRM) {
+                this.showManualLottoNumbers();
+            }
+        }.bind(this));
+        
     }
     
     connectViewAndModel() {
@@ -137,10 +154,12 @@ export default class LottoController {
         }.bind(this));
         this.$manuallyBuyingButton.addEventListener("click", this.showManualInputForms.bind(this))
     }
+
     constructor() {
         this.init();
         this.connectViewAndModel();
     }
+    
     init() {
         this.lottoService = new LottoService();
        
@@ -160,6 +179,7 @@ export default class LottoController {
         this.$manualPurchaseForm = $("lotto-manual");
         this.manualPurchaseSubmit = $(MANUAL_PURCHASE_CONFIRM);
         this.manualPurchaseSubmit.addEventListener("click", this.showLottoNumberInputView.bind(this));
+        this.manualLottoInput  = $(PURCHASED_LOTTO_NUMBERS);
      
     }
 

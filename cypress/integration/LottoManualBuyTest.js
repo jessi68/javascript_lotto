@@ -17,10 +17,6 @@ describe("lotto 구입 테스트", () => {
           input.type(numbers[index][lottoNumIndex].toString());
         });
       });
-
-
-      
-
     };
 
     it("로또 금액에 3000원을 입력하고 수동 구매 버튼을 누른 이후 구입할 갯수에 2개를 누른 경우 수동구매 2개, 자동 구매 1개가 잘 된다.", () => {
