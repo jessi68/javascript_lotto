@@ -109,13 +109,30 @@ export default class LottoController {
         }
     }
 
+    purchaseManuallyPartly() {
+        let numbers = [];
+        let inputs = document.getElementsByClassName("manual-purchase-number");
+        for(let i = 0; i < inputs.length; i += 6) {
+            let number = [];
+            for(let j = 0; j < 6; j++) {
+                number.push(inputs[i + j].value);
+            }
+            numbers.push(number);
+        }
+        this.lottoService.purchaseLottosAutomatic(this.$inputPrice.value - this.manualPrice);
+        this.lottoService.purchaseLottosByManual(numbers);
+    }
+
     showLottoNumberInputView() {
         this.manualPrice = $(INPUT_MANUAL_PURCHASE_PRICE).value;
-        let div = document.createElement("div");
+        this.lottoManualInputs = document.createElement("div");
         let lottoNum = this.manualPrice / 1000;
         for(let i = 0; i < lottoNum; i++) {
-            div.innerHTML += lottoManualInputView(i);
+            this.lottoManualInputs.innerHTML +=  lottoManualInputView(i);
         }
+       this.submitFinishButton = $("manually_submit_finish");
+        this.submitFinishButton.style.display = "block";
+      this.submitFinishButton.addEventListener("click", this.purchaseManuallyPartly.bind(this));
     }
 
     async sleep(time) {
